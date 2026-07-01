@@ -7,6 +7,7 @@ Multi-Agent Traffic Simulation - 3x3 Grid
 - Metrics: avg travel time, avg wait time, collisions, per-intersection per-direction queue counts
 """
 
+import json
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -870,6 +871,11 @@ print(TABLE_COLUMNS)
 # effect becomes visible — it is never used by default otherwise).
 _results_fixed = run_all_scenarios(light_mode='fixed')
 _results_adaptive = run_all_scenarios(light_mode='adaptive')
+with open("fixed_results.json","w") as f:
+    json.dump(_results_fixed,f,indent=4)
+
+with open("adaptive_results.json","w") as f:
+    json.dump(_results_adaptive,f,indent=4)
 print()
 print_scenario_table(_results_fixed, 'FIXED light timing (10s/axis, no traffic-aware adjustment)')
 print_scenario_table(_results_adaptive, 'ADAPTIVE light timing (green given to the busier axis)')
@@ -1089,4 +1095,4 @@ def update(frame):
 
 anim = FuncAnimation(fig, update, frames=600, interval=50, blit=True)
 plt.close()
-HTML(anim.to_jshtml())
+anim.save("simulation.gif", writer="pillow")
