@@ -102,14 +102,6 @@ Detailed experimental results are available in the accompanying project report.
 ## Project Structure
 ```
 simulation/
-├── simulation.py          # Main simulation file (agents, environment, logic)
-├── tests/                 # Experiment and validation scripts
-├── data/                  # Generated CSV
-├── plots/                 # Generated graphs and visualizations
-└── README.md
-
-
-simulation/
 ├── simulation.py          # Main simulation implementation
 ├── experiments/           # Experiment scripts and validation tests
 ├── outputs/               # Generated experiment data and results
