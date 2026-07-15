@@ -39,7 +39,7 @@ A dynamic strategy:
 - Reservation mechanism
 - Emergency priority
 - Automated experiment execution
-- Data export to CSV and JSON formats
+- Data export to CSV format
 - Result visualization and graph generation
 
 The simulation generates:
