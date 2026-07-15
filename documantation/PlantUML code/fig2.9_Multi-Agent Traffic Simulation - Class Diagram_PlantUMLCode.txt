@@ -1,0 +1,116 @@
+@startuml
+title Class Diagram - Simulation System Structure
+
+top to bottom direction
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam dpi 180
+skinparam defaultFontName Arial
+skinparam linetype ortho
+
+skinparam nodesep 35
+skinparam ranksep 45
+
+skinparam class {
+    BackgroundColor white
+    BorderColor #2E4053
+    ArrowColor #2E4053
+    FontSize 11
+}
+
+
+class Env {
+    - vehicles
+    - intersections
+    - pedestrians
+    - light_mode
+
+    + step()
+    + spawn_vehicle()
+    + run_scenario()
+}
+
+
+class Vehicle {
+    - vehicle_id
+    - position
+    - direction
+    - speed
+    - is_emergency
+
+    + move()
+    + choose_turn()
+    + priority()
+}
+
+
+class Intersection {
+    - row
+    - col
+    - faulty
+
+    + step()
+    + can_go()
+}
+
+
+class IntersectionLights {
+    - horizontal
+    - vertical
+
+    + step_fixed()
+    + step_adaptive()
+    + can_go()
+}
+
+
+class TrafficLight {
+    - phase
+    - timer
+
+    + step()
+    + force_green()
+    + force_red()
+}
+
+
+class ReservationManager {
+    - slots
+
+    + request()
+    + release()
+    + force_grant()
+}
+
+
+class Pedestrian {
+    - position
+    - active
+
+    + step()
+    + near_intersection()
+}
+
+
+
+Env "1" --> "*" Vehicle : manages
+
+Env "1" --> "*" Intersection : contains
+
+Env "1" --> "*" Pedestrian : updates
+
+
+Intersection --> IntersectionLights : controls
+
+Intersection --> ReservationManager : uses
+
+
+IntersectionLights --> TrafficLight : contains
+
+
+Vehicle --> Intersection : approaches
+
+
+Pedestrian --> Intersection : crosses near
+@enduml

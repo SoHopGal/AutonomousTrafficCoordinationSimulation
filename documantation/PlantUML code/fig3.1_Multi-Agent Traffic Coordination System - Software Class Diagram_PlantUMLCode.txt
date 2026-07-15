@@ -1,0 +1,82 @@
+@startuml
+title Multi-Agent Traffic Coordination System\nSoftware Class Diagram
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class Simulator {
+    +run()
+    +update()
+    +collect_metrics()
+}
+
+class Environment {
+    -road_network
+    -vehicles
+    -traffic_lights
+    --
+    +update()
+    +detect_collisions()
+}
+
+class VehicleAgent {
+    -vehicle_id
+    -position
+    -velocity
+    -reservation_status
+    --
+    +observe()
+    +request_reservation()
+    +update_movement()
+}
+
+class IntersectionAgent {
+    -intersection_id
+    -reservation_queue
+    --
+    +receive_request()
+    +approve_reservation()
+    +release_reservation()
+}
+
+class ReservationManager {
+    -active_reservations
+    --
+    +check_conflict()
+    +allocate_reservation()
+    +handle_priority()
+}
+
+class Message {
+    -sender
+    -receiver
+    -type
+}
+
+class MetricsCollector {
+    -travel_time
+    -waiting_time
+    -collisions
+    --
+    +record()
+    +export()
+}
+
+
+Simulator --> Environment : updates
+Simulator --> VehicleAgent : execution cycle
+Simulator --> IntersectionAgent : execution cycle
+
+Environment --> VehicleAgent : local state
+Environment --> IntersectionAgent : intersection state
+
+VehicleAgent --> Message : reservation request
+Message --> IntersectionAgent : request / response
+
+IntersectionAgent --> ReservationManager : reservation handling
+
+ReservationManager --> Message : response
+
+Simulator --> MetricsCollector : simulation results
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+title Conflict Resolution Strategy
+
+start
+
+:Incoming Vehicle Request;
+
+:Check Reservation Table;
+
+if (Active Reservation Exists?) then (Yes)
+
+:Reject Request;
+
+:Vehicle Waits;
+
+else (No)
+
+:Evaluate Priority;
+
+if (Emergency Vehicle?) then (Yes)
+
+:Apply Emergency Priority;
+
+endif
+
+:Grant Reservation;
+
+:Add Vehicle to Reservation Table;
+
+endif
+
+:Vehicle Executes Crossing;
+
+:Release Reservation;
+
+stop
+@enduml

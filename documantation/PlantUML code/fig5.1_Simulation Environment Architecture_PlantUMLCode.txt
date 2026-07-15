@@ -1,0 +1,44 @@
+@startuml
+title Simulation Environment Architecture
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+rectangle "Simulation Platform" {
+
+    component "Simulation Controller\n(Global Clock)\nΔt = 0.1s" as clock
+
+    component "Road Network\n3x3 Intersection Grid" as road
+
+    component "Vehicle Components" as vehicles
+
+    component "Intersection Components" as intersections
+
+    component "ReservationManager\nReservation Table\nConflict Resolution" as reservation
+
+    component "Performance Monitoring\nMetrics Collection\nTravel / Wait / Collision" as metrics
+
+    component "Visualization Dashboard\nReal-Time Observation" as dashboard
+}
+
+
+clock --> road : update environment
+clock --> vehicles : simulation tick
+clock --> intersections : simulation tick
+
+vehicles --> intersections : reservation requests
+
+intersections --> reservation : process requests
+
+reservation --> intersections : access decision
+
+vehicles --> metrics : report state
+
+intersections --> metrics : report state
+
+metrics --> dashboard : display statistics
+
+road --> dashboard : render network state
+vehicles --> dashboard : render vehicles
+intersections --> dashboard : render lights and queues
+@enduml

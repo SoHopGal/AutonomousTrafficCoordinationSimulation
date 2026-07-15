@@ -1,0 +1,82 @@
+@startuml
+title Simulation Software Architecture and Component Interaction
+
+top to bottom direction
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam dpi 180
+skinparam defaultFontName Arial
+skinparam linetype ortho
+
+skinparam nodesep 45
+skinparam ranksep 60
+
+skinparam component {
+    BackgroundColor white
+    BorderColor #2E4053
+    ArrowColor #2E4053
+    FontSize 11
+}
+
+
+component "Simulation Environment\n\nGrid Road Network\nSimulation Time\nScenario Configuration" as ENV
+
+
+package "Core Simulation Layer" {
+
+    component "Environment Manager\n(Env)" as SIM
+
+    component "Intersection Model\n\nIntersection\nTraffic Lights" as INT
+
+    component "Vehicle Model\n\nVehicle Agents" as VEH
+
+    component "Pedestrian Model\n\nDynamic Obstacles" as PED
+}
+
+
+package "Coordination Layer" {
+
+    component "Reservation Manager\n\nReservation Requests\nConflict Prevention\nResource Release" as RES
+
+    component "Traffic Coordination Logic\n\nScheduling\nPriority Handling" as CTRL
+}
+
+
+package "Evaluation Layer" {
+
+    component "Metrics Collection\n\nTravel Time\nWaiting Time\nCollisions" as MET
+
+    component "Scenario Runner\n\nExperiment Execution\nComparison Tests" as RUN
+}
+
+
+
+ENV --> SIM : Initialize scenario
+
+
+SIM --> INT : Update state
+
+SIM --> VEH : Update state
+
+SIM --> PED : Update state
+
+
+VEH --> RES : Reservation request
+
+RES --> INT : Validate conflict
+
+INT --> RES : Availability
+
+
+RES --> CTRL : Coordination decision
+
+CTRL --> VEH : Movement permission
+
+
+SIM --> MET : Simulation data
+
+MET --> RUN : Results
+
+RUN --> ENV : Feedback
+@enduml

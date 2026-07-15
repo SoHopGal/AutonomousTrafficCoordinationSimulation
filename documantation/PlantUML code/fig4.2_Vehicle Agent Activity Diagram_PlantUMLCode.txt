@@ -1,0 +1,50 @@
+@startuml
+title Vehicle Agent Activity Diagram
+
+start
+
+:Update Vehicle State;
+
+:Check Environment Conditions;
+
+if (Obstacle or Pedestrian Nearby?) then (Yes)
+
+:Reduce Speed / Stop;
+
+else (No)
+
+if (Approaching Intersection?) then (Yes)
+
+:Evaluate Reservation Requirement;
+
+:Send Reservation Request;
+
+if (Reservation Granted?) then (Yes)
+
+:Enter Conflict Zone;
+
+:Execute Movement;
+
+else (No)
+
+:Wait at Intersection;
+
+endif
+
+else (No)
+
+:Continue Movement;
+
+endif
+
+endif
+
+
+:Update Vehicle Position;
+
+if (Intersection Cleared?) then (Yes)
+:Release Reservation;
+endif
+
+stop
+@enduml

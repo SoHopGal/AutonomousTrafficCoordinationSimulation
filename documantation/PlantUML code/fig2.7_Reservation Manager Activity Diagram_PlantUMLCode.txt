@@ -1,0 +1,69 @@
+@startuml
+title Reservation Manager Activity Diagram
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam dpi 180
+skinparam defaultFontName Arial
+skinparam linetype ortho
+
+skinparam activity {
+    BackgroundColor white
+    BorderColor #2E4053
+    ArrowColor #2E4053
+    FontSize 13
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor #2E4053
+}
+
+start
+
+:Receive Reservation Request;
+
+if (Emergency Vehicle?) then (Yes)
+
+    :Execute force_grant();
+
+    if (Vehicle currently\ninside intersection?) then (Yes)
+
+        :Reject temporary override;
+        :Wait until intersection is clear;
+
+    else (No)
+
+        :Clear existing reservation;
+        :Assign reservation to emergency vehicle;
+        :Grant reservation;
+
+    endif
+
+else (No)
+
+    if (Vehicle already has\nreservation?) then (Yes)
+
+        :Approve existing reservation;
+
+    else (No)
+
+        if (Reservation slot occupied?) then (Yes)
+
+            :Reject reservation request;
+
+        else (No)
+
+            :Store vehicle in reservation slots;
+            :Grant reservation;
+
+        endif
+    endif
+endif
+
+:Vehicle completes crossing;
+
+:Receive release request;
+
+:Remove vehicle from reservation slots;
+
+stop
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+title Simulation Architecture
+
+top to bottom direction
+
+skinparam shadowing false
+skinparam roundcorner 15
+skinparam rectangle {
+    BackgroundColor White
+    BorderColor Black
+}
+skinparam defaultFontSize 12
+skinparam linetype ortho
+
+rectangle "Simulation Engine" as SIM
+
+rectangle "Environment Layer" as ENV
+rectangle "Agent Layer" as AGENT
+rectangle "Reservation Manager" as RM
+rectangle "Metrics Collection" as MET
+
+SIM --> ENV
+SIM --> AGENT
+SIM --> RM
+SIM --> MET
+
+ENV --> AGENT : World State
+
+AGENT --> RM : Reservation\nRequests
+RM --> AGENT : Reservation\nResponses
+
+AGENT --> ENV : Vehicle\nActions
+
+ENV --> MET : Simulation Data
+RM --> MET : Reservation Data
+@enduml

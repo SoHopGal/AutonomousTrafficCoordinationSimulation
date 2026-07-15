@@ -1,0 +1,52 @@
+@startuml
+title Vehicle State Machine Diagram
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam dpi 180
+skinparam defaultFontName Arial
+skinparam linetype ortho
+
+skinparam state {
+    BackgroundColor white
+    BorderColor #2E4053
+    FontSize 13
+    FontColor black
+}
+
+[*] --> Moving
+
+state Moving {
+}
+
+Moving --> Approaching_Intersection : Vehicle approaches target intersection
+
+state Approaching_Intersection {
+}
+
+Approaching_Intersection --> Waiting_for_Reservation : Reservation request sent
+
+state Waiting_for_Reservation {
+}
+
+Waiting_for_Reservation --> Waiting_for_Reservation : Reservation rejected\n(wait and retry)
+
+Waiting_for_Reservation --> Reservation_Granted : Reservation approved
+
+state Reservation_Granted {
+}
+
+Reservation_Granted --> Inside_Intersection : Enter conflict zone
+
+state Inside_Intersection {
+}
+
+Inside_Intersection --> Completed_Crossing : Vehicle exits intersection
+
+state Completed_Crossing {
+}
+
+Completed_Crossing --> Moving : Release reservation\nContinue trip
+
+Moving --> [*] : Trip completed
+@enduml

@@ -1,0 +1,68 @@
+@startuml
+title Overall Reservation-Based Traffic Coordination Framework
+
+top to bottom direction
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam dpi 180
+skinparam defaultFontName Arial
+skinparam linetype ortho
+
+skinparam nodesep 20
+skinparam ranksep 30
+
+skinparam component {
+    BackgroundColor white
+    BorderColor #2E4053
+    ArrowColor #2E4053
+    FontSize 11
+}
+
+
+component "Traffic Environment\n\nRoad conditions\nVehicle positions\nDynamic events" as ENV
+
+component "Vehicle Agent\n\nEnvironment sensing\nMovement decision\nReservation request" as VEH
+
+component "Reservation Request" as REQ
+
+component "Intersection Agent\n\nRequest handling\nConflict checking\nCrossing management" as INT
+
+component "Conflict Check" as CHECK
+
+component "Reservation Decision" as DEC
+
+component "Reservation Granted\n\nVehicle crosses intersection" as GRANT
+
+component "Reservation Rejected\n\nVehicle waits and retries" as REJECT
+
+component "Reservation Release" as RELEASE
+
+component "Environment Update\n\nNew traffic state" as UPDATE
+
+
+ENV --> VEH : Observation
+
+VEH --> REQ : Submit request
+
+REQ --> INT : Request processing
+
+INT --> CHECK : Verify conflicts
+
+CHECK --> DEC : Result
+
+
+DEC --> GRANT : Available
+
+DEC --> REJECT : Not available
+
+
+REJECT --> VEH : Retry request
+
+
+GRANT --> RELEASE : After crossing
+
+RELEASE --> UPDATE : Update state
+
+UPDATE --> ENV : Feedback loop
+@enduml

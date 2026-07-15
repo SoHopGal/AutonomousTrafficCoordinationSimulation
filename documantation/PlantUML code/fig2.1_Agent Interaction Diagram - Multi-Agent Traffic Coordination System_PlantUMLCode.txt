@@ -1,0 +1,72 @@
+@startuml
+title Agent Interaction Diagram - Multi-Agent Traffic Coordination System
+
+top to bottom direction
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam dpi 180
+skinparam defaultFontName Arial
+skinparam linetype ortho
+
+skinparam nodesep 20
+skinparam ranksep 30
+
+skinparam component {
+    BackgroundColor white
+    BorderColor #2E4053
+    ArrowColor #2E4053
+    FontSize 11
+}
+
+
+component "Urban Traffic Environment\n\n• Road Network\n• Traffic Conditions\n• Dynamic Events" as ENV
+
+
+component "Vehicle Agents\n\n• Autonomous Vehicles\n• Emergency Vehicles" as VEH
+
+
+component "Reservation-Based\nCommunication" as COMM
+
+
+component "Intersection Agents\n\n• Local Coordination\n• Reservation Management" as INT
+
+
+component "Vehicle Execution\n\n• Approved Movement\n• Intersection Crossing" as EXEC
+
+
+component "Environment Feedback\n\n• Updated Positions\n• Updated Traffic State" as FEED
+
+
+
+ENV --> VEH : Perception\nState Observation
+
+ENV --> INT : Intersection State
+
+
+VEH --> COMM : Reservation\nRequest
+
+COMM --> INT : Coordination Request
+
+
+INT --> COMM : Grant / Reject\nDecision
+
+COMM --> VEH : Reservation\nResponse
+
+
+VEH --> EXEC : Execute\nMovement
+
+EXEC --> FEED : State Update
+
+FEED --> ENV : Feedback Loop
+
+
+
+note right of COMM
+Reservation process:
+1. Request
+2. Conflict check
+3. Decision
+4. Release
+end note
+@enduml

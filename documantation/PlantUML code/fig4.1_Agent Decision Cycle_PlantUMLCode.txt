@@ -1,0 +1,25 @@
+@startuml
+title Agent Decision Cycle
+
+start
+
+:Observe Environment State;
+
+:Update Internal State;
+
+:Evaluate Current Situation;
+
+if (Communication Required?) then (Yes)
+    :Exchange Messages;
+endif
+
+:Select Action;
+
+:Execute Action;
+
+:Update Environment;
+
+:Next Simulation Tick;
+
+stop
+@enduml

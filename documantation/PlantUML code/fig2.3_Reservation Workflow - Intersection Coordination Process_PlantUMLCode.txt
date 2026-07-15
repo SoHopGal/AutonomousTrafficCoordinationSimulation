@@ -1,0 +1,74 @@
+@startuml
+title Reservation Workflow - Intersection Coordination Process
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam dpi 180
+skinparam defaultFontName Arial
+skinparam linetype ortho
+
+skinparam activity {
+    BackgroundColor white
+    BorderColor #2E4053
+    ArrowColor #2E4053
+    FontSize 13
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor #2E4053
+}
+
+start
+
+:Vehicle approaches intersection;
+
+:Estimate crossing intention\nand select turn direction;
+
+:Check traffic permission\nand intersection availability;
+
+:Send reservation request;
+
+if (Emergency Vehicle?) then (Yes)
+
+    :Execute emergency priority handling;
+
+    if (Intersection currently occupied?) then (Yes)
+
+        :Wait until intersection is clear;
+
+    else (No)
+
+        :Grant emergency reservation;
+
+    endif
+
+else (No)
+
+    :Check reservation availability;
+
+    if (Conflict zone available?) then (Yes)
+
+        :Allocate reservation slot;
+
+        :Grant reservation;
+
+    else (No)
+
+        :Reject reservation;
+
+        :Vehicle waits and retries;
+
+    endif
+
+endif
+
+
+:Vehicle enters intersection;
+
+:Vehicle crosses conflict zone;
+
+:Release reservation slot;
+
+:Continue toward next destination;
+
+stop
+@enduml

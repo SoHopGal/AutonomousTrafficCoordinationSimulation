@@ -1,0 +1,35 @@
+@startuml
+title Intersection Agent Activity Diagram
+
+start
+
+:Receive Reservation Request;
+
+:Check Active Reservations;
+
+if (Conflict Zone Available?) then (Yes)
+
+:Evaluate Vehicle Priority;
+
+:Grant Reservation;
+
+:Update Reservation Table;
+
+else (No)
+
+:Reject Request;
+
+:Vehicle Waits;
+
+endif
+
+:Monitor Active Crossing;
+
+if (Vehicle Cleared Intersection?) then (Yes)
+
+:Release Reservation;
+
+endif
+
+stop
+@enduml

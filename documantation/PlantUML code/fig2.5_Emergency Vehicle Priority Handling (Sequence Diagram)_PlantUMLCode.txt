@@ -1,0 +1,56 @@
+@startuml
+title Emergency Vehicle Priority Handling (Sequence Diagram)
+
+skinparam shadowing false
+skinparam dpi 180
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+
+actor "Emergency\nVehicle" as EV
+participant "Intersection" as I
+participant "Reservation\nManager" as RM
+participant "Regular\nVehicle" as RV
+
+EV -> I : Request emergency priority
+
+I -> RM : force_grant(EV)
+
+alt Intersection is free
+
+    RM -> RM : Clear existing reservations
+    RM -> RM : Assign reservation to EV
+    
+    RM --> I : Emergency reservation granted
+    I --> EV : Approval response
+
+    EV -> EV : Enter intersection
+    EV -> EV : Cross intersection
+
+    EV -> RM : release(EV)
+    RM -> RM : Remove reservation
+
+else Vehicle currently inside intersection
+
+    RM -> RV : Continue current crossing
+
+    RM --> I : Priority delayed
+    I --> EV : Wait
+
+    RV -> RM : release(RV)
+    RM -> RM : Remove reservation
+
+    EV -> I : Retry priority request
+    I -> RM : force_grant(EV)
+
+    RM -> RM : Assign reservation to EV
+
+    RM --> I : Emergency reservation granted
+    I --> EV : Approval response
+
+    EV -> EV : Enter intersection
+    EV -> EV : Cross intersection
+
+    EV -> RM : release(EV)
+
+end
+@enduml
