@@ -108,9 +108,9 @@ simulation/
 │   ├── csv/               # Experiment results in CSV format
 │   └── plots/             # Generated graphs and visualizations
 ├── documentation/         # System design diagrams and models
+│   ├── PlantUML code/     # PlantUML diagrams
 │   ├── PNG files/         # PNG diagrams
-│   ├── SVG files/         # SVG diagrams
-│   └── PlantUML code/     # PlantUML diagrams
+│   └── SVG files/         # SVG diagrams
 └── README.md
 ```
 
