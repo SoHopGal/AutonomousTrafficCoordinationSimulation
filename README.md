@@ -115,11 +115,13 @@ simulation/
 ```
 
 ## Output Files
-
 The simulation produces:
 - CSV files containing generated experiment results
 - Visualization plots for performance analysis
 
+
+## Academic Project
+Video link: https://www.youtube.com/watch?v=MXEq_WkcRFM
 
 ## Academic Project
 This simulation was developed as part of the course project for the Autonomous Agents course in the M.Sc. Software Engineering program.
