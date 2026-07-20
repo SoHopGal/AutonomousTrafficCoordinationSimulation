@@ -1,4 +1,3 @@
-
 # Autonomous Traffic Coordination Simulation
 **Reservation-Based Traffic Coordination Framework (RBTCF)**
 
@@ -6,7 +5,7 @@ Python • Agent-Based Simulation • Traffic Coordination
 
 ## Overview
 
-This directory contains the simulation environment developed for the Autonomous Traffic Coordination project.
+This repository contains the simulation environment developed for the Autonomous Traffic Coordination project.
 
 The simulation models an urban traffic network with autonomous vehicles and intelligent intersections. 
 The objective is to evaluate reservation-based traffic coordination and compare fixed and adaptive traffic-light control strategies under various traffic scenarios.
@@ -67,9 +66,9 @@ These components are implemented within the main simulation file (`simulation.py
 - Python 3.x
 
 Required Python packages:
-- Numpy
-- Matplotlib
-- Pandas
+- numpy
+- matplotlib
+- pandas
 
 
 ## Running the Simulation
@@ -78,10 +77,25 @@ Required Python packages:
 pip install numpy matplotlib pandas
 ```
 
-### Run the simulation:
+### Run the simulator:
 ```bash
 python simulation.py
 ```
+
+### Execution Environment
+
+The project was developed and evaluated using Google Colab / Jupyter Notebook.
+
+The simulator visualization is generated using:
+
+```python
+HTML(anim.to_jshtml())
+```
+
+which is supported by notebook environments.
+
+When executed from a standard Python terminal, the simulation logic executes normally, but the interactive animation is not displayed. The accompanying video demonstration presents the simulator's graphical execution.
+
 
 ## Experiments
 The simulation was evaluated using multiple traffic scenarios with different traffic loads and configurations.
@@ -127,7 +141,9 @@ The simulation produces:
 
 
 ## Video Demonstration
+A complete demonstration of the simulator is available on YouTube:
+
 https://www.youtube.com/watch?v=MXEq_WkcRFM
 
 ## Academic Project
-This simulation was developed as part of the course project for the Course: Engineering of Autonomous Multi-Agent Systems in M.Sc. Software Engineering program.
+This simulation was developed as part of the course project for the Engineering of Autonomous Multi-Agent Systems course in the M.Sc. Software Engineering program at Shenkar College of Engineering, Design and Art.
